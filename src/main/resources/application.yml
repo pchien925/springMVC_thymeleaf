@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: SpringMVC_thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_mvc
+    username: root
+    password: 25092004chien
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8888

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{views/admin/layout}">
+<head>
+    <title>Category List</title>
+</head>
+<body layout:fragment="content">
+<div class="container mt-4">
+    <h2 th:text="${category.isEdit ? 'Edit Category' : 'Add Category'}"></h2>
+
+    <form th:action="@{/admin/categories/saveOrUpdate}" th:object="${category}" method="POST">
+        <!-- Display validation errors -->
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <ul>
+                <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
+            </ul>
+        </div>
+
+        <!-- Category Name Field -->
+        <div class="form-group">
+            <label>Category Name</label>
+            <input type="text" th:field="*{categoryname}" class="form-control" placeholder="Enter category name"
+                   required>
+            <div th:if="${#fields.hasErrors('categoryname')}" th:errors="*{categoryname}" class="text-danger"></div>
+        </div>
+
+        <!-- Image URL Field -->
+        <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" th:field="*{images}" class="form-control" placeholder="Enter image URL" required>
+            <div th:if="${#fields.hasErrors('images')}" th:errors="*{images}" class="text-danger"></div>
+        </div>
+
+        <!-- Status Field -->
+        <div class="form-group">
+            <label>Status</label>
+            <select th:field="*{status}" class="form-control">
+                <option value="1" th:text="'Active'">Active</option>
+                <option value="0" th:text="'Inactive'">Inactive</option>
+            </select>
+            <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></div>
+        </div>
+
+        <!-- Hidden isEdit Field -->
+        <input type="hidden" th:field="*{isEdit}"/>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary"
+                th:text="${category.isEdit ? 'Update Category' : 'Add Category'}"></button>
+    </form>
+
+    <!-- Message Display -->
+    <div class="alert alert-info mt-3" th:if="${message}" th:text="${message}"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{views/admin/layout}">
+<head>
+    <title>Category List</title>
+</head>
+<body layout:fragment="content">
+
+<a th:href="@{/admin/category/add}">Add Category</a>
+<br>
+<hr>
+<table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Images</th>
+        <th>Category name</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cate, stat : ${listcate}">
+        <td th:text="${stat.index + 1}"></td>
+
+        <!-- Hiển thị ảnh từ link hoặc server -->
+        <td>
+            <img th:src="${cate.images != null && cate.images.startsWith('https') ? cate.images : '/image?fname=' + cate.images}"
+                 height="150" width="200" alt="Category Image" />
+        </td>
+        <td th:text="${cate.name}"></td>
+
+        <!-- Hiển thị trạng thái -->
+        <td th:text="${cate.status}"></td>
+
+        <!-- Các nút hành động -->
+        <td>
+            <a th:href="@{/admin/category/edit(id=${cate.id})}">Sửa</a>
+            <a th:href="@{/admin/category/delete(id=${cate.id})}">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
